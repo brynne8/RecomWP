@@ -32,7 +32,7 @@ if (!window.mw || !window.mw.config) {
   window.RLQ[1]();
 }
 
-if (window.wgNamespaceNumber === 0 || window.wgPageName === 'Special:ø’∞◊“≥√Ê/RecomWP') {
+if (window.wgNamespaceNumber === 0 || window.wgPageName === 'Special:Á©∫ÁôΩÈ°µÈù¢/RecomWP') {
 var wpdb;
 
 window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
