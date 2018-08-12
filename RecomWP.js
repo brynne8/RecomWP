@@ -28,9 +28,9 @@ if (!window.mw || !window.mw.config) {
       implement: function () {}
     }
   };
+  window.RLQ[0]();
+  window.RLQ[1]();
 }
-window.RLQ[0]();
-window.RLQ[1]();
 
 if (window.wgNamespaceNumber === 0 || window.wgPageName === 'Special:¿Õ°×Ò³Ãæ/RecomWP') {
 var wpdb;
@@ -117,6 +117,21 @@ function addData(newItem) {
       };
     }
   };
+}
+
+function relativeSearch(pageName, callback) {
+  var queryUrl = 'https://zh.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages|description&piprop=thumbnail&pithumbsize=160&generator=search&gsrsearch=morelike%3A'
+                + encodeURI(pageName) + '&gsrnamespace=0&gsrlimit=5&gsrqiprofile=classic_noboostlinks&uselang=content&smaxage=86400&maxage=86400';
+  var request = new XMLHttpRequest();
+  request.open('GET', queryUrl, true);
+  request.onload = function() {
+    var contentType = request.status === 204 ? '' : request.getResponseHeader('content-type');
+    if (request.status >= 200 && request.status < 400) {
+      var responseText = JSON.parse(request.responseText);
+      callback(responseText);
+    }
+  };
+  request.send();
 }
 
 function generateRecom() {
@@ -251,7 +266,11 @@ function generateRecom() {
       heap.push(cursor.value);
       cursor.continue();
     } else {
-      console.log(heap.pop().pageName)
+      relativeSearch(heap.pop().pageName, function (data) {
+        if (data.batchcomplete) {
+          console.log(data.query.pages);
+        }
+      })
     }
   };
 }
