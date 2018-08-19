@@ -168,7 +168,7 @@ function appendToPage(pageName, pages) {
     let cardDiv = document.createElement('div');
     cardDiv.className = 'ext-related-articles-card-thumb';
     if (item.thumbnail) {
-      cardDiv.style.background = 'url("' + item.thumbnail.source + '")'
+      cardDiv.style['background-image'] = 'url("' + item.thumbnail.source + '")'
     }
 
     let cardLink = document.createElement('a');
