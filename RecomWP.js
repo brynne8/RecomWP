@@ -330,7 +330,6 @@ function generateRecom() {
         let pageName = heap.pop().pageName
         relativeSearch(pageName, function (data) {
           if (data.batchcomplete) {
-            console.log(data.query.pages);
             appendToPage(pageName, data.query.pages);
           }
         })
