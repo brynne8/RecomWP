@@ -35,12 +35,12 @@ if (!window.mw || !window.mw.config) {
   window.mw = tempMW;
 }
 
-if (window.wgNamespaceNumber === 0 || window.wgPageName === 'Special:空白页面/RecomWP') {
-
 var navLink = document.createElement('li');
 navLink.id = 'RecomWP';
 navLink.innerHTML = '<a href="/wiki/Special:%E7%A9%BA%E7%99%BD%E9%A1%B5%E9%9D%A2/RecomWP" title="为你推荐的条目">推荐条目</a>';
 document.querySelector('#p-navigation ul').appendChild(navLink);
+
+if (window.wgNamespaceNumber === 0 || window.wgPageName === 'Special:空白页面/RecomWP') {
 
 var wpdb;
 
