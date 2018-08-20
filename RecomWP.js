@@ -67,7 +67,7 @@ DBOpenRequest.onsuccess = function(event) {
       pageId: window.wgArticleId,
       pageName: window.wgPageName
     });
-  } else {
+  } else if (window.wgAction === 'view') {
 
     function GM_addStyle(css) {
       const style = document.createElement('style');
@@ -328,16 +328,28 @@ function generateRecom() {
       heap.push(cursor.value);
       cursor.continue();
     } else {
-      for (let i = 1; i <=5; i++) {
+      var getPage = function () {
         if (!heap.size()) {
-          break;
+          return false;
         }
-        let pageName = heap.pop().pageName
+        let topEntry = heap.pop();
+        let pageName = topEntry.pageName;
         relativeSearch(pageName, function (data) {
           if (data.batchcomplete) {
-            appendToPage(pageName, data.query.pages);
+            if (data.query) {
+              appendToPage(pageName, data.query.pages);
+            } else {
+              wpdb.transaction(["historyArticles"], "readwrite").objectStore('historyArticles').delete(topEntry.pageId);
+              getPage()
+            }
           }
         })
+        return true;
+      }
+      for (let i = 1; i <= 5; i++) {
+        if (!getPage()) {
+          break;
+        }
       }
     }
   };
