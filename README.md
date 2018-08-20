@@ -3,8 +3,8 @@ Wikipedia Recommendation System
 
 The repo is still in alpha stage. Only for Chinese Wikipedia currently.
 
-# Usage
-## For unregistered Wikipedia users / Wikipedia readers
+## Usage
+### For unregistered Wikipedia users / Wikipedia readers
 Download addon Tampermonkey [Firefox](https://addons.mozilla.org/zh-CN/firefox/addon/tampermonkey/) [Chrome](https://chrome.google.com/webstore/search/tampermonkey)
 
 Open dashboard (管理面板), click the `+` button, and you will see a page that can create your own user scripts. Here, we copy all the code from the [RecomWP.js](https://github.com/AlexanderMisel/RecomWP/blob/master/RecomWP.js) file to the editor and <kbd>CTRL</kbd>+<kbd>S</kbd> to save it. There's nothing else you should do.
@@ -17,9 +17,12 @@ A new link appeared and that's the link to RecomWP. You should first open some a
 
 ![default](https://screenshotscdn.firefoxusercontent.com/images/7104cb37-f333-4625-964f-e6654f39a4cc.png)
 
-## For Wikipedia users
+### For Wikipedia users
 Of course you can use the method above, there's another option. You can simply add one line to your [common.js](https://zh.wikipedia.org/wiki/Special:MyPage/common.js)
 ```js
 importScript('User:Alexander Misel/test2.js');
 ```
 And you will see the same things as above.
+
+## Contribution
+The RecomWP is self-contained and so it doesn't rely on other libraries, so you'd better not using other libraries if it isn't so necessary. Your browser should support IndexedDB. Pull requests and issues are welcomed. I used a Binary Heap to sort the entries.
