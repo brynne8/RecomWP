@@ -3,7 +3,10 @@
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  Wikipedia Recommendation System
+// @homepage     https://github.com/AlexanderMisel/RecomWP
+// @supportURL   https://github.com/AlexanderMisel/RecomWP/issues
 // @author       Alexander Misel
+// @license      GPL-3.0
 // @match        https://zh.wikipedia.org/*
 // @grant        none
 // ==/UserScript==
