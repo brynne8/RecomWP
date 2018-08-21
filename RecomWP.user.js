@@ -36,6 +36,11 @@
     window.RLQ[0]();
     window.RLQ[1]();
     window.mw = tempMW;
+  } else if (window.mw && window.mw.config) {
+    window.wgAction = mw.config.get('wgAction');
+    window.wgArticleId = mw.config.get('wgArticleId');
+    window.wgPageName = mw.config.get('wgPageName');
+    window.wgNamespaceNumber = mw.config.get('wgNamespaceNumber');
   }
 
   var navLink = document.createElement('li');
