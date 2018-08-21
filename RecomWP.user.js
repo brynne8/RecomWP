@@ -36,11 +36,6 @@
     window.RLQ[0]();
     window.RLQ[1]();
     window.mw = tempMW;
-  } else if (window.mw && window.mw.config) {
-    window.wgAction = mw.config.get('wgAction');
-    window.wgArticleId = mw.config.get('wgArticleId');
-    window.wgPageName = mw.config.get('wgPageName');
-    window.wgNamespaceNumber = mw.config.get('wgNamespaceNumber');
   }
 
   var navLink = document.createElement('li');
@@ -48,7 +43,7 @@
   navLink.innerHTML = '<a href="/wiki/Special:%E7%A9%BA%E7%99%BD%E9%A1%B5%E9%9D%A2/RecomWP" title="为你推荐的条目">推荐条目</a>';
   document.querySelector('#p-navigation ul').appendChild(navLink);
 
-  if (window.wgNamespaceNumber === 0 || window.wgPageName === 'Special:空白页面/RecomWP') {
+  if (mw.config.get('wgNamespaceNumber') === 0 || mw.config.get('wgPageName') === 'Special:空白页面/RecomWP') {
 
     var wpdb;
 
@@ -70,12 +65,12 @@
       // store the result of opening the database in the db variable. This is used a lot below
       wpdb = DBOpenRequest.result;
 
-      if (window.wgArticleId) {
+      if (mw.config.get('wgArticleId')) {
         addData({
-          pageId: window.wgArticleId,
-          pageName: window.wgPageName
+          pageId: mw.config.get('wgArticleId'),
+          pageName: mw.config.get('wgPageName')
         });
-      } else if (window.wgAction === 'view') {
+      } else if (mw.config.get('wgAction') === 'view') {
 
         var GM_addStyle = function (css) {
           const style = document.createElement('style');
