@@ -80,7 +80,7 @@ DBOpenRequest.onsuccess = function(event) {
       document.head.appendChild(style);
     }
 
-    document.getElementById('firstHeading').innerText = '推荐条目'
+    document.getElementById('firstHeading').innerText = '推荐条目';
     GM_addStyle('.ra-read-more h2{border-bottom:0;font-size:.8em;font-weight:400;color:#72777d;padding-bottom:.5em;text-transform:uppercase;letter-spacing:1px}.ra-read-more ul{margin:0}.ext-related-articles-card-list{border-top:0}.ext-related-articles-card-list{display:-webkit-flex;display:-moz-flex;display:-ms-flexbox;display:flex;flex-flow:row wrap;font-size:1em;list-style:none;overflow:hidden;position:relative}.ext-related-articles-card-list .ext-related-articles-card,.ext-related-articles-card-list .ext-related-articles-card:first-child,.ext-related-articles-card-list .ext-related-articles-card:last-child{border-radius:2px}.ext-related-articles-card-list .ext-related-articles-card{background-color:#fff;box-sizing:border-box;margin:0;height:80px;position:relative;border:1px solid rgba(0,0,0,.2);margin-right:1%;margin-bottom:10px;width:32.66666667%}.ext-related-articles-card-list .ext-related-articles-card:nth-child(3n+3){margin-right:0}.ext-related-articles-card-list .ext-related-articles-card-thumb{background-color:#eaecf0;background-image:url(/w/extensions/RelatedArticles/resources/ext.relatedArticles.cards/noimage.png?9e3d8);background-image:linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 56 56%22%3E %3Cpath fill=%22%23eaecf0%22 d=%22M0 0h56v56h-56%22/%3E %3Cpath fill=%22%2372777d%22 d=%22M36.4 13.5h-18.6v24.9c0 1.4.9 2.3 2.3 2.3h18.7v-25c.1-1.4-1-2.2-2.4-2.2zm-6.2 3.5h5.1v6.4h-5.1v-6.4zm-8.8 0h6v1.8h-6v-1.8zm0 4.6h6v1.8h-6v-1.8zm0 15.5v-1.8h13.8v1.8h-13.8zm13.8-4.5h-13.8v-1.8h13.8v1.8zm0-4.7h-13.8v-1.8h13.8v1.8z%22/%3E %3C/svg%3E");background-repeat:no-repeat;background-position:top center;-webkit-background-size:100% 100%;background-size:100% 100%;background-size:cover;float:left;height:100%;width:80px;margin-right:10px}.ext-related-articles-card-list .ext-related-articles-card>a{position:absolute;top:0;right:0;bottom:0;left:0;z-index:1}.ext-related-articles-card-list .ext-related-articles-card-detail{position:relative;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}.ext-related-articles-card-list h3{font-family:inherit;font-size:1em;max-height:2.6em;line-height:1.3;margin:0;overflow:hidden;padding:0;position:relative;font-weight:500}.ext-related-articles-card-list h3 a{color:#000}.ext-related-articles-card-list h3::after{content:" ";position:absolute;right:0;bottom:0;width:25%;height:1.3em;background-color:transparent;background-image:-webkit-linear-gradient(right,rgba(255,255,255,0),#fff 50%);background-image:-moz-linear-gradient(right,rgba(255,255,255,0),#fff 50%);background-image:-o-linear-gradient(right,rgba(255,255,255,0),#fff 50%);background-image:linear-gradient(to right,rgba(255,255,255,0),#fff 50%)}.ext-related-articles-card-list .ext-related-articles-card-extract{color:#72777d;font-size:.8em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}');
 
     generateRecom();
@@ -171,7 +171,7 @@ function appendToPage(pageName, pages) {
     let cardDiv = document.createElement('div');
     cardDiv.className = 'ext-related-articles-card-thumb';
     if (item.thumbnail) {
-      cardDiv.style['background-image'] = 'url("' + item.thumbnail.source + '")'
+      cardDiv.style['background-image'] = 'url("' + item.thumbnail.source + '")';
     }
 
     let cardLink = document.createElement('a');
@@ -181,7 +181,7 @@ function appendToPage(pageName, pages) {
     cardDetail.className = 'ext-related-articles-card-detail';
     cardDetail.innerHTML = '<h3>' + item.title + '</h3>';
     if (item.description) {
-      cardDetail.innerHTML += '<p class="ext-related-articles-card-extract">' + item.description + '</p>'
+      cardDetail.innerHTML += '<p class="ext-related-articles-card-extract">' + item.description + '</p>';
     }
 
     listItem.appendChild(cardDiv);
@@ -192,8 +192,8 @@ function appendToPage(pageName, pages) {
 
   let blockDiv = document.createElement('div');
   blockDiv.className = 'ra-read-more';
-  blockDiv.appendChild(titleBar)
-  blockDiv.appendChild(alist)
+  blockDiv.appendChild(titleBar);
+  blockDiv.appendChild(alist);
 
   document.getElementById('mw-content-text').appendChild(blockDiv);
 }
@@ -343,12 +343,12 @@ function generateRecom() {
               appendToPage(pageName, data.query.pages);
             } else {
               wpdb.transaction(["historyArticles"], "readwrite").objectStore('historyArticles').delete(topEntry.pageId);
-              getPage()
+              getPage();
             }
           }
-        })
+        });
         return true;
-      }
+      };
       for (let i = 1; i <= 5; i++) {
         if (!getPage()) {
           break;
