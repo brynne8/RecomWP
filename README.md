@@ -7,7 +7,7 @@ The repo is still in alpha stage. Only for Chinese Wikipedia currently.
 ### For unregistered Wikipedia users / Wikipedia readers
 Download addon Tampermonkey [Firefox](https://addons.mozilla.org/firefox/addon/tampermonkey/) / [Chrome](https://chrome.google.com/webstore/search/tampermonkey)
 
-Just open [RecomWP.user.js](https://github.com/AlexanderMisel/RecomWP/blob/master/RecomWP.user.js) file and install it with your favorite user script manager.
+Just open [RecomWP.user.js](https://github.com/AlexanderMisel/RecomWP/blob/master/RecomWP.user.js) file and install it with your favorite user script manager. The script is also available on [Greasy Fork](https://greasyfork.org/zh-CN/scripts/371385-recomwp).
 
 Open Wikipedia [home page](https://zh.wikipedia.org/wiki/Wikipedia:%E9%A6%96%E9%A1%B5) and check what changed
 
