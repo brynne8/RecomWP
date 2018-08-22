@@ -26,3 +26,8 @@ And you will see the same things as above.
 
 ## Contribution
 The RecomWP is self-contained and so it doesn't rely on other libraries, so you'd better not using other libraries if it isn't so necessary. Your browser should support IndexedDB. Pull requests and issues are welcomed. I used a Binary Heap to sort the entries.
+
+Your code should work in the following three situations before you submit a PR:
+1. Normal setting for Wikipedia users by importing script in common.js
+2. Tampermonkey userscript with jQuery enabled
+3. Tampermonkey userscript with jQuery disabled (block jQuery by rule `*&modules=jquery*`, see [WikipediaWithoutJquery](https://github.com/AlexanderMisel/WikipediaWithoutJquery) )
