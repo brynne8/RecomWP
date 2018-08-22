@@ -14,7 +14,7 @@
 (function () {
 
 // Polyfill for Wikipedia with no jQuery
-  if (!window.mw || !window.mw.config) {
+  if (Array.isArray(window.RLQ)) {
     var tempMW = null;
     if (window.mw) {
       tempMW = window.mw;
@@ -36,7 +36,7 @@
     window.RLQ[0]();
     window.RLQ[1]();
     window.mw = tempMW;
-  } else if (window.mw && window.mw.config) {
+  } else {
     window.wgAction = mw.config.get('wgAction');
     window.wgArticleId = mw.config.get('wgArticleId');
     window.wgPageName = mw.config.get('wgPageName');
