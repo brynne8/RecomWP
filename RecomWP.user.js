@@ -148,6 +148,10 @@
         }
       };
     };
+    
+    var removeData = function (pageId) {
+      wpdb.transaction(['historyArticles'], 'readwrite').objectStore('historyArticles').delete(pageId);
+    };
 
     var relativeSearch = function (pageName, callback) {
       let queryUrl = 'https://zh.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages|description&piprop=thumbnail&pithumbsize=160&generator=search&gsrsearch=morelike%3A'
@@ -163,9 +167,10 @@
       request.send();
     };
 
-    var appendToPage = function (pageName, pages) {
+    var appendToPage = function (pageName, pages, pageId) {
       let titleBar = document.createElement('h2');
-      titleBar.innerHTML = '<strong>' + pageName + '</strong>相关页面';
+      titleBar.innerHTML = '<strong>' + pageName + '</strong>相关页面 ';
+      
       let alist = document.createElement('ul');
       alist.className = 'ext-related-articles-card-list';
       pages.forEach(function (item) {
@@ -197,6 +202,14 @@
 
       let blockDiv = document.createElement('div');
       blockDiv.className = 'ra-read-more';
+      
+      let dontLike = document.createElement('a');
+      dontLike.innerText = '[不感兴趣]';
+      dontLike.onclick = function () {
+        removeData(pageId);
+        blockDiv.style.display = 'none';
+      };
+      titleBar.appendChild(dontLike);
       blockDiv.appendChild(titleBar);
       blockDiv.appendChild(alist);
 
@@ -349,9 +362,9 @@
             relativeSearch(pageName, function (data) {
               if (data.batchcomplete) {
                 if (data.query) {
-                  appendToPage(pageName, data.query.pages);
+                  appendToPage(pageName, data.query.pages, topEntry.pageId);
                 } else {
-                  wpdb.transaction(['historyArticles'], 'readwrite').objectStore('historyArticles').delete(topEntry.pageId);
+                  removeData(topEntry.pageId);
                   getPage();
                 }
               }
