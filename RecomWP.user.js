@@ -353,6 +353,12 @@
           heap.push(cursor.value);
           cursor.continue();
         } else {
+          // first remove the backmost entries to keep size, default size 127
+          if (heap.size() >= 128) {
+            for (let i = 127; i < heap.size(); i++) {
+              removeData(heap.content[i].pageId);
+            }
+          }
           var getPage = function () {
             if (!heap.size()) {
               return false;
