@@ -30,4 +30,4 @@ The RecomWP is self-contained and so it doesn't rely on other libraries, so you'
 Your code should work in the following three situations before you submit a PR:
 1. Normal setting for Wikipedia users by importing script in common.js
 2. Tampermonkey userscript with jQuery enabled
-3. Tampermonkey userscript with jQuery disabled (block jQuery by rule `*jquery*`, see [WikipediaWithoutJquery](https://github.com/AlexanderMisel/WikipediaWithoutJquery) )
+3. Tampermonkey userscript with jQuery disabled (block jQuery by rule `*.wikipedia.org/*jquery*$script`, see [WikipediaWithoutJquery](https://github.com/AlexanderMisel/WikipediaWithoutJquery) )
