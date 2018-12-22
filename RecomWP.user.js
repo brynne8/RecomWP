@@ -87,8 +87,10 @@
 
         document.title = '推荐条目';
         document.getElementById('firstHeading').innerText = '推荐条目';
-        GM_addStyle('.recom-root{position:relative;}.ra-read-more{overflow:hidden;max-height:300px;transition:max-height 1s;}#left-recom{float:left;width:66.666667%}#right-recom{float:left;width:33.333333%}.ra-read-more h2{border-bottom:0;font-size:.8em;font-weight:400;color:#72777d;padding-bottom:.5em;text-transform:uppercase;letter-spacing:1px}.ra-read-more ul{margin:0}.ext-related-articles-card-list{border-top:0}.ext-related-articles-card-list{display:-webkit-flex;display:-moz-flex;display:-ms-flexbox;display:flex;flex-flow:row wrap;font-size:1em;list-style:none;overflow:hidden;position:relative}.ext-related-articles-card-list .ext-related-articles-card{border-radius:6px;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,0.12),0 2px 4px rgba(0,0,0,0.24);transition:all 0.3s cubic-bezier(.25,.8,.25,1);}.ext-related-articles-card-list .ext-related-articles-card:hover{box-shadow:0 5px 10px rgba(0,0,0,0.25),0 5px 10px rgba(0,0,0,0.22);}.ext-related-articles-card-list .ext-related-articles-card:active{box-shadow:0 2px 4px rgba(0,0,0,0.12),0 2px 4px rgba(0,0,0,0.24);}.ext-related-articles-card-list .ext-related-articles-card{background-color:#fff;box-sizing:border-box;margin:0;height:80px;position:relative;border:1px solid rgba(0,0,0,.2);margin-right:1%;margin-bottom:10px;width:49%;}.ext-related-articles-card-list .ext-related-articles-card-thumb{background-color:#eaecf0;background-image:url(/w/extensions/RelatedArticles/resources/ext.relatedArticles.cards/noimage.png?9e3d8);background-image:linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 56 56%22%3E %3Cpath fill=%22%23eaecf0%22 d=%22M0 0h56v56h-56%22/%3E %3Cpath fill=%22%2372777d%22 d=%22M36.4 13.5h-18.6v24.9c0 1.4.9 2.3 2.3 2.3h18.7v-25c.1-1.4-1-2.2-2.4-2.2zm-6.2 3.5h5.1v6.4h-5.1v-6.4zm-8.8 0h6v1.8h-6v-1.8zm0 4.6h6v1.8h-6v-1.8zm0 15.5v-1.8h13.8v1.8h-13.8zm13.8-4.5h-13.8v-1.8h13.8v1.8zm0-4.7h-13.8v-1.8h13.8v1.8z%22/%3E %3C/svg%3E");background-repeat:no-repeat;background-position:top center;-webkit-background-size:100% 100%;background-size:100% 100%;background-size:cover;float:left;height:100%;width:80px;margin-right:10px}.ext-related-articles-card-list .ext-related-articles-card>a{position:absolute;top:0;right:0;bottom:0;left:0;z-index:1}.ext-related-articles-card-list .ext-related-articles-card-detail{position:relative;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}.ext-related-articles-card-list h3{font-family:inherit;font-size:1em;max-height:2.6em;line-height:1.3;margin:0;overflow:hidden;padding:0;position:relative;font-weight:500}.ext-related-articles-card-list h3 a{color:#000}.ext-related-articles-card-list h3::after{content:" ";position:absolute;right:0;bottom:0;width:25%;height:1.3em;background-color:transparent;background-image:-webkit-linear-gradient(right,rgba(255,255,255,0),#fff 50%);background-image:-moz-linear-gradient(right,rgba(255,255,255,0),#fff 50%);background-image:-o-linear-gradient(right,rgba(255,255,255,0),#fff 50%);background-image:linear-gradient(to right,rgba(255,255,255,0),#fff 50%)}.ext-related-articles-card-list .ext-related-articles-card-extract{color:#72777d;font-size:.8em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}');
+        GM_addStyle('.recom-root{position:relative;}.ra-read-more{overflow:hidden;max-height:300px;transition:max-height 1s;}#left-recom{float:left;width:66.666667%}#right-recom{float:left;width:33.333333%}.ra-read-more h2{border-bottom:0;font-size:.8em;font-weight:400;color:#72777d;padding-bottom:.5em;text-transform:uppercase;letter-spacing:1px}.ra-read-more ul{margin:0}.ext-related-articles-card-list{border-top:0}.ext-related-articles-card-list{display:-webkit-flex;display:-moz-flex;display:-ms-flexbox;display:flex;flex-flow:row wrap;font-size:1em;list-style:none;overflow:hidden;position:relative}.ext-related-articles-card-list .ext-related-articles-card{border-radius:6px;overflow:hidden;box-shadow:0 2px 4px rgba(0,0,0,0.12),0 2px 4px rgba(0,0,0,0.24);transition:all 0.3s cubic-bezier(.25,.8,.25,1);}.ext-related-articles-card-list .ext-related-articles-card:hover{box-shadow:0 5px 10px rgba(0,0,0,0.25),0 5px 10px rgba(0,0,0,0.22);}.ext-related-articles-card-list .ext-related-articles-card:active{box-shadow:0 2px 4px rgba(0,0,0,0.12),0 2px 4px rgba(0,0,0,0.24);}.ext-related-articles-card-list .ext-related-articles-card{background-color:#fff;box-sizing:border-box;margin:0;height:80px;position:relative;border:1px solid rgba(0,0,0,.2);margin-right:1%;margin-bottom:10px;width:49%;}.ext-related-articles-card-list .ext-related-articles-card-thumb{background-color:#eaecf0;background-image:url(/w/extensions/RelatedArticles/resources/ext.relatedArticles.cards/noimage.png?9e3d8);background-image:linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 56 56%22%3E %3Cpath fill=%22%23eaecf0%22 d=%22M0 0h56v56h-56%22/%3E %3Cpath fill=%22%2372777d%22 d=%22M36.4 13.5h-18.6v24.9c0 1.4.9 2.3 2.3 2.3h18.7v-25c.1-1.4-1-2.2-2.4-2.2zm-6.2 3.5h5.1v6.4h-5.1v-6.4zm-8.8 0h6v1.8h-6v-1.8zm0 4.6h6v1.8h-6v-1.8zm0 15.5v-1.8h13.8v1.8h-13.8zm13.8-4.5h-13.8v-1.8h13.8v1.8zm0-4.7h-13.8v-1.8h13.8v1.8z%22/%3E %3C/svg%3E");background-repeat:no-repeat;background-position:top center;-webkit-background-size:100% 100%;background-size:100% 100%;background-size:cover;float:left;height:100%;width:80px;margin-right:10px}.ext-related-articles-card-list .ext-related-articles-card>a{position:absolute;top:0;right:0;bottom:0;left:0;z-index:1}.ext-related-articles-card-list .ext-related-articles-card-detail{position:relative;top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%)}.ext-related-articles-card-list h3{font-family:inherit;font-size:1em;max-height:2.6em;line-height:1.3;margin:0;overflow:hidden;padding:0;position:relative;font-weight:500}.ext-related-articles-card-list h3 a{color:#000}.ext-related-articles-card-list h3::after{content:" ";position:absolute;right:0;bottom:0;width:25%;height:1.3em;background-color:transparent;background-image:-webkit-linear-gradient(right,rgba(255,255,255,0),#fff 50%);background-image:-moz-linear-gradient(right,rgba(255,255,255,0),#fff 50%);background-image:-o-linear-gradient(right,rgba(255,255,255,0),#fff 50%);background-image:linear-gradient(to right,rgba(255,255,255,0),#fff 50%)}.ext-related-articles-card-list .ext-related-articles-card-extract{color:#72777d;font-size:.8em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}.recom-card{box-shadow:0 2px 4px rgba(0,0,0,0.12),0 2px 4px rgba(0,0,0,0.24);padding:10px;transition:all 0.3s cubic-bezier(.25,.8,.25,1);}.recom-card + .recom-card{margin-top:20px;}.recom-card:hover{box-shadow:0 5px 10px rgba(0,0,0,0.25),0 5px 10px rgba(0,0,0,0.22);}.recom-card img,.img-banner img{cursor:pointer;width:100%;}.trend-list{list-style-type:none;}.trend-list li{display:flex;line-height:36px;font-size:24px;cursor:pointer;}.trend-list li:hover{color:#4284f3;}.trend-item-left{display:inline-block;min-width:50px;}');
 
+        let landscapeDiv = document.createElement('div');
+        landscapeDiv.id = 'landscape-recom';
         let leftDiv = document.createElement('div');
         leftDiv.id = 'left-recom';
         let rightDiv = document.createElement('div');
@@ -96,10 +98,12 @@
         let rootDiv = document.getElementById('mw-content-text');
         rootDiv.innerHTML = '';
         rootDiv.classList.add('recom-root');
+        rootDiv.appendChild(landscapeDiv);
         rootDiv.appendChild(leftDiv);
         rootDiv.appendChild(rightDiv);
 
         generateRecom();
+        getTrend();
       }
     };
 
@@ -177,8 +181,8 @@
       request.send();
     };
 
-    window.dailyFeatured = function (callback) {
-      let ymd = new Date().toISOString().split('T')[0].replace(/-/g, '/');
+    var dailyFeatured = function (callback) {
+      let ymd = new Date(Date.now() - 2 * 60 * 60000).toISOString().split('T')[0].replace(/-/g, '/');
       let queryUrl = 'https://zh.wikipedia.org/api/rest_v1/feed/featured/' + ymd;
       let request = new XMLHttpRequest();
       request.open('GET', queryUrl, true);
@@ -190,6 +194,71 @@
       };
       request.send();
     };
+
+    var getTrend = function () {
+      var generateImage = function (imageObj) {
+        console.log(imageObj);
+        let featImg = new Image();
+        featImg.onclick = function () {
+          window.location.href = imageObj.file_page
+        }
+        if (imageObj.image.width / imageObj.image.height >= 3) {
+          // wide image
+          featImg.src = imageObj.thumbnail.source.replace('640px', '1280px');
+          let imgBanner = document.createElement('div');
+          imgBanner.className = 'img-banner';
+          imgBanner.appendChild(featImg)
+          document.getElementById('landscape-recom').appendChild(imgBanner)
+        } else {
+          // normal image
+          featImg.src = imageObj.thumbnail.source;
+          let imgCard = document.createElement('div');
+          imgCard.className = 'recom-card';
+          imgCard.appendChild(featImg);
+          imgCard.insertAdjacentHTML('beforeend', imageObj.description.html);
+          document.getElementById('right-recom').appendChild(imgCard)
+        }
+      };
+
+      var generateTrendList = function (mostread) {
+        let trendTitle = document.createElement('h2');
+        trendTitle.innerHTML = '热门条目';
+        trendTitle.style = 'text-align:center';
+        let trendCard = document.createElement('div');
+        trendCard.className = 'recom-card';
+        trendCard.appendChild(trendTitle)
+
+        let articles = mostread.articles
+        let trendList = document.createElement('ul');
+        trendList.className = 'trend-list'
+        for (let i = 0; i < 10; i++) {
+          trendItemLeft = document.createElement('span');
+          trendItemLeft.className = 'trend-item-left';
+          trendItemLeft.innerText = i + 1;
+          trendItemRight = document.createElement('span');
+          trendItemRight.className = 'trend-item-right';
+          trendItemRight.innerText = articles[i].normalizedtitle;
+          let trendItem = document.createElement('li');
+          trendItem.onclick = function () {
+            window.location.href = articles[i].content_urls.desktop.page
+          }
+          trendItem.appendChild(trendItemLeft);
+          trendItem.appendChild(trendItemRight);
+          trendList.appendChild(trendItem);
+        }
+        trendCard.appendChild(trendList);
+        document.getElementById('right-recom').appendChild(trendCard);
+      };
+
+      dailyFeatured(function (res) {
+        if (res.image) {
+          generateImage(res.image);
+        }
+        if (res.mostread) {
+          generateTrendList(res.mostread);
+        }
+      });
+    }
 
     var appendToPage = function (pageName, pages, pageId) {
       let titleBar = document.createElement('h2');
@@ -401,7 +470,7 @@
             });
             return true;
           };
-          for (let i = 1; i <= 5; i++) {
+          for (let i = 1; i <= 6; i++) {
             if (!getPage()) {
               break;
             }
