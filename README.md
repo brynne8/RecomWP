@@ -13,7 +13,7 @@ Open Wikipedia [home page](https://zh.wikipedia.org/wiki/Wikipedia:%E9%A6%96%E9%
 
 A new link appeared and that's the link to RecomWP. You should first open some articles that you like and then you will get the Recommeded articles base on the articles you visited.
 
-![default](https://screenshotscdn.firefoxusercontent.com/images/cb9b7eb6-0a2f-4aab-83fc-9967e61e8de3.png)
+![default](https://screenshotscdn.firefoxusercontent.com/images/7d9dfd86-9b71-4e7e-af68-300c497b6850.png)
 
 ### For Wikipedia users
 Of course you can use the method above, there's another option. You can simply add one line to your [common.js](https://zh.wikipedia.org/wiki/Special:MyPage/common.js)
