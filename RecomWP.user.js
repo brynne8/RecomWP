@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         RecomWP
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Wikipedia Recommendation System
 // @homepage     https://github.com/AlexanderMisel/RecomWP
 // @supportURL   https://github.com/AlexanderMisel/RecomWP/issues
