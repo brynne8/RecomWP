@@ -11,11 +11,9 @@ Just open [RecomWP.user.js](https://github.com/AlexanderMisel/RecomWP/blob/maste
 
 Open Wikipedia [home page](https://zh.wikipedia.org/wiki/Wikipedia:%E9%A6%96%E9%A1%B5) and check what changed
 
-![default](https://screenshotscdn.firefoxusercontent.com/images/557d66de-3ce8-4f9a-bb4f-639dea26d972.png)
-
 A new link appeared and that's the link to RecomWP. You should first open some articles that you like and then you will get the Recommeded articles base on the articles you visited.
 
-![default](https://screenshotscdn.firefoxusercontent.com/images/7104cb37-f333-4625-964f-e6654f39a4cc.png)
+![default](https://screenshots.firefox.com/RDto18Z9qM7Q9x8h/zh.wikipedia.org)
 
 ### For Wikipedia users
 Of course you can use the method above, there's another option. You can simply add one line to your [common.js](https://zh.wikipedia.org/wiki/Special:MyPage/common.js)
