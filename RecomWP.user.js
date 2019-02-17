@@ -215,7 +215,9 @@
           let imgCard = document.createElement('div');
           imgCard.className = 'recom-card';
           imgCard.appendChild(featImg);
-          imgCard.insertAdjacentHTML('beforeend', imageObj.description.html);
+          if (imageObj.description) {
+            imgCard.insertAdjacentHTML('beforeend', imageObj.description.html);
+          }
           document.getElementById('right-recom').appendChild(imgCard)
         }
       };
