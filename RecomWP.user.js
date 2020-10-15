@@ -239,7 +239,7 @@
           trendItemLeft.innerText = i + 1;
           trendItemRight = document.createElement('span');
           trendItemRight.className = 'trend-item-right';
-          trendItemRight.innerText = articles[i].normalizedtitle;
+          trendItemRight.innerText = articles[i].displaytitle;
           let trendItem = document.createElement('li');
           trendItem.onclick = function () {
             window.location.href = articles[i].content_urls.desktop.page
