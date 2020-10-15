@@ -234,10 +234,10 @@
         let trendList = document.createElement('ul');
         trendList.className = 'trend-list'
         for (let i = 0; i < 10; i++) {
-          trendItemLeft = document.createElement('span');
+          var trendItemLeft = document.createElement('span');
           trendItemLeft.className = 'trend-item-left';
           trendItemLeft.innerText = i + 1;
-          trendItemRight = document.createElement('span');
+          var trendItemRight = document.createElement('span');
           trendItemRight.className = 'trend-item-right';
           trendItemRight.innerText = articles[i].displaytitle;
           let trendItem = document.createElement('li');
