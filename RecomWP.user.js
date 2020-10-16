@@ -197,7 +197,6 @@
 
     var getTrend = function () {
       var generateImage = function (imageObj) {
-        console.log(imageObj);
         let featImg = new Image();
         featImg.onclick = function () {
           window.location.href = imageObj.file_page
@@ -221,8 +220,33 @@
           document.getElementById('right-recom').appendChild(imgCard)
         }
       };
+      
+      var blacklist = /電視劇|电视剧|劇集|剧集|電影#|电影#|真人秀|綜藝|综艺|选秀|演员|演員|歌手|音樂團體/
 
-      var generateTrendList = function (mostread) {
+      var filterResult = function (list, callback) {
+        let queryUrl = 'https://zh.wikipedia.org/w/api.php?action=query&prop=categories&clshow=!hidden'
+          + '&cllimit=max&format=json&formatversion=2&pageids=' + list.map(x => x.pageid).join('|');
+        let request = new XMLHttpRequest();
+        request.open('GET', queryUrl, true);
+        request.onload = function () {
+          if (request.status >= 200 && request.status < 400) {
+            let pages = JSON.parse(request.responseText).query.pages;
+            for (let article of pages) {
+              let categories = article.categories.map(x => x.title).join('#') + '#';
+              if (blacklist.test(categories)) {
+                let item = list.find(x => x.pageid == article.pageid);
+                if (item) {
+                  item.filtered = true
+                }
+              }
+            }
+            callback(list.filter(x => !x.filtered));
+          }
+        };
+        request.send();
+      };
+
+      var generateTrendList = function (articles) {
         let trendTitle = document.createElement('h2');
         trendTitle.innerHTML = '热门条目';
         trendTitle.style = 'text-align:center';
@@ -230,14 +254,13 @@
         trendCard.className = 'recom-card';
         trendCard.appendChild(trendTitle)
 
-        let articles = mostread.articles
         let trendList = document.createElement('ul');
         trendList.className = 'trend-list'
         for (let i = 0; i < 10; i++) {
-          var trendItemLeft = document.createElement('span');
+          let trendItemLeft = document.createElement('span');
           trendItemLeft.className = 'trend-item-left';
           trendItemLeft.innerText = i + 1;
-          var trendItemRight = document.createElement('span');
+          let trendItemRight = document.createElement('span');
           trendItemRight.className = 'trend-item-right';
           trendItemRight.innerText = articles[i].displaytitle;
           let trendItem = document.createElement('li');
@@ -257,7 +280,7 @@
           generateImage(res.image);
         }
         if (res.mostread) {
-          generateTrendList(res.mostread);
+          filterResult(res.mostread.articles, generateTrendList);
         }
       });
     }
