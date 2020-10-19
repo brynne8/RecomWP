@@ -220,8 +220,9 @@
           document.getElementById('right-recom').appendChild(imgCard)
         }
       };
-      
-      var blacklist = /電視劇|电视剧|劇集|剧集|電影#|电影#|真人秀|綜藝|综艺|选秀|演员|演員|歌手|音樂團體/
+
+      var tvlist = /電視劇|电视剧|劇集|剧集|電影#|电影#|真人秀|綜藝|综艺|选秀|Running Man|演员|演員|歌手|音樂團體/
+      var acglist = /漫畫|漫画|動畫|动画|遊戲|游戏|角色列表/
 
       var filterResult = function (list, callback) {
         let queryUrl = 'https://zh.wikipedia.org/w/api.php?action=query&prop=categories&clshow=!hidden'
@@ -233,22 +234,30 @@
             let pages = JSON.parse(request.responseText).query.pages;
             for (let article of pages) {
               let categories = article.categories.map(x => x.title).join('#') + '#';
-              if (blacklist.test(categories)) {
+              if (tvlist.test(categories)) {
                 let item = list.find(x => x.pageid == article.pageid);
                 if (item) {
-                  item.filtered = true
+                  item.filtered = 'tv'
+                }
+              } else if (acglist.test(categories)) {
+                let item = list.find(x => x.pageid == article.pageid);
+                if (item) {
+                  item.filtered = 'acg'
                 }
               }
             }
             callback(list.filter(x => !x.filtered));
+            callback(list.filter(x => x.filtered === 'tv'), '影视娱乐');
+            callback(list.filter(x => x.filtered === 'acg'), 'ACG');
           }
         };
         request.send();
       };
 
-      var generateTrendList = function (articles) {
+      var generateTrendList = function (articles, type) {
+        if (!articles.length) return;
         let trendTitle = document.createElement('h2');
-        trendTitle.innerHTML = '热门条目';
+        trendTitle.innerHTML = (type || '') + '热门条目';
         trendTitle.style = 'text-align:center';
         let trendCard = document.createElement('div');
         trendCard.className = 'recom-card';
@@ -262,6 +271,7 @@
           trendItemLeft.innerText = i + 1;
           let trendItemRight = document.createElement('span');
           trendItemRight.className = 'trend-item-right';
+          if (!articles[i]) break;
           trendItemRight.innerText = articles[i].displaytitle;
           let trendItem = document.createElement('li');
           trendItem.onclick = function () {
