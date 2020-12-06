@@ -167,11 +167,9 @@
       wpdb.transaction(['historyArticles'], 'readwrite').objectStore('historyArticles').delete(pageId);
     };
 
-    var relativeSearch = function (pageName, callback) {
-      let queryUrl = 'https://zh.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages|description&piprop=thumbnail&pithumbsize=160&generator=search&gsrsearch=morelike%3A'
-                + encodeURI(pageName) + '&gsrnamespace=0&gsrlimit=4&gsrqiprofile=classic_noboostlinks&uselang=content&smaxage=86400&maxage=86400';
+    var httpGet = function(url, callback) {
       let request = new XMLHttpRequest();
-      request.open('GET', queryUrl, true);
+      request.open('GET', url, true);
       request.onload = function () {
         if (request.status >= 200 && request.status < 400) {
           var responseText = JSON.parse(request.responseText);
@@ -179,85 +177,82 @@
         }
       };
       request.send();
+    }
+
+    var relativeSearch = function (pageName, callback) {
+      let queryUrl = 'https://zh.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&prop=pageimages|description&piprop=thumbnail&pithumbsize=160&generator=search&gsrsearch=morelike%3A'
+                + encodeURI(pageName) + '&gsrnamespace=0&gsrlimit=4&gsrqiprofile=classic_noboostlinks&uselang=content&smaxage=86400&maxage=86400';
+      httpGet(queryUrl, callback);
     };
 
     var dailyFeatured = function (callback) {
       let ymd = new Date(Date.now() - 2 * 60 * 60000).toISOString().split('T')[0].replace(/-/g, '/');
       let queryUrl = 'https://zh.wikipedia.org/api/rest_v1/feed/featured/' + ymd;
-      let request = new XMLHttpRequest();
-      request.open('GET', queryUrl, true);
-      request.onload = function () {
-        if (request.status >= 200 && request.status < 400) {
-          var responseText = JSON.parse(request.responseText);
-          callback(responseText);
+      httpGet(queryUrl, callback);
+    };
+
+    // O(n) time & O(n) space
+    var mergeTwo = function(arr1, arr2) {
+      let merged = [];
+      let index1 = 0;
+      let index2 = 0;
+      let current = 0;
+
+      while (current < (arr1.length + arr2.length)) {
+
+        let isArr1Depleted = index1 >= arr1.length;
+        let isArr2Depleted = index2 >= arr2.length;
+
+        if (!isArr1Depleted && (isArr2Depleted || (arr1[index1].views > arr2[index2].views))) {
+          merged[current] = arr1[index1];
+          index1++;
+        } else {
+          merged[current] = arr2[index2];
+          index2++;
         }
-      };
-      request.send();
+
+        current++;
+      }
+
+      return merged;
+    }
+
+    var dailyTrend = function (params, callback) {
+      var result = [];
+      Promise.all(params.split(',')
+        .map(x => fetch('https://alex-wiki.toolforge.org/topviews?' + x)
+          .then(response => response.json())
+          .then(data => {
+            result = mergeTwo(result, data);
+          })
+        )
+      ).then(() => callback(result));
     };
 
     var getTrend = function () {
-      var generateImage = function (imageObj) {
+      var generateImage = function (imgCard, imageObj) {
         let featImg = new Image();
         featImg.onclick = function () {
           window.location.href = imageObj.file_page
         }
-        if (imageObj.image.width / imageObj.image.height >= 3) {
-          // wide image
-          featImg.src = imageObj.thumbnail.source.replace('640px', '1280px');
-          let imgBanner = document.createElement('div');
-          imgBanner.className = 'img-banner';
-          imgBanner.appendChild(featImg)
-          document.getElementById('landscape-recom').appendChild(imgBanner)
-        } else {
-          // normal image
-          featImg.src = imageObj.thumbnail.source;
-          let imgCard = document.createElement('div');
-          imgCard.className = 'recom-card';
-          imgCard.appendChild(featImg);
-          if (imageObj.description) {
-            imgCard.insertAdjacentHTML('beforeend', imageObj.description.html);
-          }
-          document.getElementById('right-recom').appendChild(imgCard)
+        // normal image
+        featImg.src = imageObj.thumbnail.source;
+        imgCard.className = 'recom-card';
+        imgCard.appendChild(featImg);
+        if (imageObj.description) {
+          imgCard.insertAdjacentHTML('beforeend', imageObj.description.html);
         }
       };
 
-      var tvlist = /電視劇|电视剧|劇集|剧集|電影#|电影#|真人秀|綜藝|综艺|选秀|Running Man|演员|演員|歌手|音樂團體/
-      var acglist = /漫畫|漫画|動畫|动画|遊戲|游戏|角色列表/
-
-      var filterResult = function (list, callback) {
-        let queryUrl = 'https://zh.wikipedia.org/w/api.php?action=query&prop=categories&clshow=!hidden'
-          + '&cllimit=max&format=json&formatversion=2&pageids=' + list.map(x => x.pageid).join('|');
-        let request = new XMLHttpRequest();
-        request.open('GET', queryUrl, true);
-        request.onload = function () {
-          if (request.status >= 200 && request.status < 400) {
-            let pages = JSON.parse(request.responseText).query.pages;
-            for (let article of pages) {
-              let categories = article.categories.map(x => x.title).join('#') + '#';
-              if (tvlist.test(categories)) {
-                let item = list.find(x => x.pageid == article.pageid);
-                if (item) {
-                  item.filtered = 'tv'
-                }
-              } else if (acglist.test(categories)) {
-                let item = list.find(x => x.pageid == article.pageid);
-                if (item) {
-                  item.filtered = 'acg'
-                }
-              }
-            }
-            callback(list.filter(x => !x.filtered));
-            callback(list.filter(x => x.filtered === 'tv'), '影视娱乐');
-            callback(list.filter(x => x.filtered === 'acg'), 'ACG');
-          }
-        };
-        request.send();
+      var trendParams = {
+        'ACG': 'topic=acg',
+        '影视娱乐': 'topic=drama|film|show,type=star',
+        '': 'topic=!drama|!film|!show|!acg&type=!star'
       };
 
-      var generateTrendList = function (articles, type) {
-        if (!articles.length) return;
+      var generateTrendList = function (type) {
         let trendTitle = document.createElement('h2');
-        trendTitle.innerHTML = (type || '') + '热门条目';
+        trendTitle.innerHTML = type + '热门条目';
         trendTitle.style = 'text-align:center';
         let trendCard = document.createElement('div');
         trendCard.className = 'recom-card';
@@ -265,34 +260,40 @@
 
         let trendList = document.createElement('ul');
         trendList.className = 'trend-list'
-        for (let i = 0; i < 10; i++) {
-          let trendItemLeft = document.createElement('span');
-          trendItemLeft.className = 'trend-item-left';
-          trendItemLeft.innerText = i + 1;
-          let trendItemRight = document.createElement('span');
-          trendItemRight.className = 'trend-item-right';
-          if (!articles[i]) break;
-          trendItemRight.innerText = articles[i].displaytitle;
-          let trendItem = document.createElement('li');
-          trendItem.onclick = function () {
-            window.location.href = articles[i].content_urls.desktop.page
-          }
-          trendItem.appendChild(trendItemLeft);
-          trendItem.appendChild(trendItemRight);
-          trendList.appendChild(trendItem);
-        }
         trendCard.appendChild(trendList);
         document.getElementById('right-recom').appendChild(trendCard);
+        
+        dailyTrend(trendParams[type], articles => {
+          for (let i = 0; i < 10; i++) {
+            let trendItemLeft = document.createElement('span');
+            trendItemLeft.className = 'trend-item-left';
+            trendItemLeft.innerText = i + 1;
+            let trendItemRight = document.createElement('span');
+            trendItemRight.className = 'trend-item-right';
+            if (!articles[i]) break;
+            trendItemRight.innerText = articles[i].article.replace('_', ' ');
+            let trendItem = document.createElement('li');
+            trendItem.onclick = function () {
+              window.location.href = 'https://zh.wikipedia.org/wiki/' + articles[i].article
+            }
+            trendItem.appendChild(trendItemLeft);
+            trendItem.appendChild(trendItemRight);
+            trendList.appendChild(trendItem);
+          }
+        });
       };
-
-      dailyFeatured(function (res) {
+ 
+      let imgCard = document.createElement('div');
+      document.getElementById('right-recom').appendChild(imgCard);
+      dailyFeatured(res => {
         if (res.image) {
-          generateImage(res.image);
-        }
-        if (res.mostread) {
-          filterResult(res.mostread.articles, generateTrendList);
+          generateImage(imgCard, res.image);
         }
       });
+
+      generateTrendList('');
+      generateTrendList('影视娱乐');
+      generateTrendList('ACG');
     }
 
     var appendToPage = function (pageName, pages, pageId) {
