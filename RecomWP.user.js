@@ -197,17 +197,23 @@
       let index1 = 0;
       let index2 = 0;
       let current = 0;
+      let duplicate = 0;
 
-      while (current < (arr1.length + arr2.length)) {
+      while (current + duplicate < (arr1.length + arr2.length)) {
 
         let isArr1Depleted = index1 >= arr1.length;
         let isArr2Depleted = index2 >= arr2.length;
 
-        if (!isArr1Depleted && (isArr2Depleted || (arr1[index1].views > arr2[index2].views))) {
+        if (!isArr1Depleted && (isArr2Depleted || (arr1[index1].views >= arr2[index2].views))) {
           merged[current] = arr1[index1];
           index1++;
         } else {
-          merged[current] = arr2[index2];
+          if (merged[current-1] && merged[current-1].article === arr2[index2].article) {
+              duplicate++;
+              current--;
+          } else {
+              merged[current] = arr2[index2];
+          }
           index2++;
         }
 
@@ -262,7 +268,7 @@
         trendList.className = 'trend-list'
         trendCard.appendChild(trendList);
         document.getElementById('right-recom').appendChild(trendCard);
-        
+
         dailyTrend(trendParams[type], articles => {
           for (let i = 0; i < 10; i++) {
             let trendItemLeft = document.createElement('span');
@@ -282,7 +288,7 @@
           }
         });
       };
- 
+
       let imgCard = document.createElement('div');
       document.getElementById('right-recom').appendChild(imgCard);
       dailyFeatured(res => {
