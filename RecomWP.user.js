@@ -277,7 +277,7 @@
             let trendItemRight = document.createElement('span');
             trendItemRight.className = 'trend-item-right';
             if (!articles[i]) break;
-            trendItemRight.innerText = articles[i].article.replace('_', ' ');
+            trendItemRight.innerText = articles[i].article.replace(/_/g, ' ');
             let trendItem = document.createElement('li');
             trendItem.onclick = function () {
               window.location.href = 'https://zh.wikipedia.org/wiki/' + articles[i].article
